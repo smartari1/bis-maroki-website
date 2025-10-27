@@ -176,15 +176,15 @@ export default function LocationCTA({
 
             {/* Waze Link */}
             <motion.a
-              href="https://www.waze.com/ul?q=בית+מסעדה"
+              href="https://waze.com/ul?ll=31.7449239,35.0594668&navigate=yes"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ x: -5 }}
               className="flex items-center gap-2 text-brand-black hover:text-brand-red transition-colors font-semibold"
               data-interactive
             >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12 6.477 2 12 2z" />
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 48 48">
+                <path d="M47.5 24c0-13-10.5-23.5-23.5-23.5S.5 11 .5 24s10.5 23.5 23.5 23.5 23.5-10.5 23.5-23.5zm-27-9.8c0-.6.4-1 1-1h5c.6 0 1 .4 1 1v1.5c0 .6-.4 1-1 1h-5c-.6 0-1-.4-1-1v-1.5zm8.8 14.3l-1.8 5.3c-.2.5-.6.8-1.1.8h-3.9c-.5 0-.9-.3-1.1-.8l-1.8-5.3c-.1-.3 0-.6.2-.8.2-.2.5-.3.8-.2l3.5 1.2c.3.1.6.1.9 0l3.5-1.2c.3-.1.6 0 .8.2.2.2.3.5.2.8z"/>
               </svg>
               נווטו אלינו בWaze ←
             </motion.a>

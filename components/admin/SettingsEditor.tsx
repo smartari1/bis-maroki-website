@@ -45,6 +45,12 @@ interface SettingsFormValues {
     friday: string;
     saturday: string;
   };
+  catering: {
+    minOrderAmount: string;
+    minPersons: string;
+    deliveryFee: string;
+    freeDeliveryThreshold: string;
+  };
 }
 
 interface SettingsEditorProps {
@@ -96,6 +102,12 @@ export function SettingsEditor({ initialData }: SettingsEditorProps) {
         friday: initialData?.hours?.friday || '',
         saturday: initialData?.hours?.saturday || '',
       },
+      catering: {
+        minOrderAmount: initialData?.catering?.minOrderAmount?.toString() || '200',
+        minPersons: initialData?.catering?.minPersons?.toString() || '10',
+        deliveryFee: initialData?.catering?.deliveryFee?.toString() || '0',
+        freeDeliveryThreshold: initialData?.catering?.freeDeliveryThreshold?.toString() || '0',
+      },
     },
     validate: {
       contact: {
@@ -114,6 +126,24 @@ export function SettingsEditor({ initialData }: SettingsEditorProps) {
           if (!value) return null;
           const num = parseFloat(value);
           return !isNaN(num) && num >= -180 && num <= 180 ? null : 'קו אורך לא תקין';
+        },
+      },
+      catering: {
+        minOrderAmount: (value) => {
+          const num = parseFloat(value);
+          return !isNaN(num) && num >= 0 ? null : 'מינימום הזמנה חייב להיות מספר חיובי';
+        },
+        minPersons: (value) => {
+          const num = parseInt(value);
+          return !isNaN(num) && num >= 1 ? null : 'מינימום סועדים חייב להיות לפחות 1';
+        },
+        deliveryFee: (value) => {
+          const num = parseFloat(value);
+          return !isNaN(num) && num >= 0 ? null : 'דמי משלוח חייבים להיות מספר חיובי';
+        },
+        freeDeliveryThreshold: (value) => {
+          const num = parseFloat(value);
+          return !isNaN(num) && num >= 0 ? null : 'סף למשלוח חינם חייב להיות מספר חיובי';
         },
       },
     },
@@ -178,13 +208,19 @@ export function SettingsEditor({ initialData }: SettingsEditorProps) {
     setLoading(true);
 
     try {
-      // Convert lat/lng to numbers
+      // Convert lat/lng and catering values to numbers
       const payload = {
         ...values,
         location: {
           ...values.location,
           lat: values.location.lat ? parseFloat(values.location.lat) : undefined,
           lng: values.location.lng ? parseFloat(values.location.lng) : undefined,
+        },
+        catering: {
+          minOrderAmount: parseFloat(values.catering.minOrderAmount),
+          minPersons: parseInt(values.catering.minPersons),
+          deliveryFee: parseFloat(values.catering.deliveryFee),
+          freeDeliveryThreshold: parseFloat(values.catering.freeDeliveryThreshold),
         },
       };
 
@@ -230,6 +266,7 @@ export function SettingsEditor({ initialData }: SettingsEditorProps) {
             <Tabs.Tab value="hours">שעות פעילות</Tabs.Tab>
             <Tabs.Tab value="location">מיקום</Tabs.Tab>
             <Tabs.Tab value="brand">מותג</Tabs.Tab>
+            <Tabs.Tab value="catering">מגשי אירוח</Tabs.Tab>
           </Tabs.List>
 
           <Tabs.Panel value="contact" pt="lg">
@@ -413,6 +450,69 @@ export function SettingsEditor({ initialData }: SettingsEditorProps) {
 
                 <Text size="sm" c="dimmed">
                   העלאת לוגו תתאפשר במסך ניהול המדיה
+                </Text>
+              </Stack>
+            </Paper>
+          </Tabs.Panel>
+
+          <Tabs.Panel value="catering" pt="lg">
+            <Paper p="lg" withBorder>
+              <Stack gap="md">
+                <div>
+                  <Title order={3} mb="xs">
+                    הגדרות מגשי אירוח
+                  </Title>
+                  <Text size="sm" c="dimmed">
+                    מינימום הזמנה, דמי משלוח ועוד
+                  </Text>
+                </div>
+
+                <Grid gutter="md">
+                  <Grid.Col span={6}>
+                    <TextInput
+                      label="מינימום הזמנה (₪)"
+                      placeholder="200"
+                      type="number"
+                      required
+                      {...form.getInputProps('catering.minOrderAmount')}
+                      description="הסכום המינימלי להזמנה בשקלים"
+                    />
+                  </Grid.Col>
+
+                  <Grid.Col span={6}>
+                    <TextInput
+                      label="מינימום סועדים"
+                      placeholder="10"
+                      type="number"
+                      required
+                      {...form.getInputProps('catering.minPersons')}
+                      description="מספר מינימלי של סועדים להזמנה"
+                    />
+                  </Grid.Col>
+
+                  <Grid.Col span={6}>
+                    <TextInput
+                      label="דמי משלוח (₪)"
+                      placeholder="0"
+                      type="number"
+                      {...form.getInputProps('catering.deliveryFee')}
+                      description="עלות משלוח בסיסית (0 למשלוח חינם)"
+                    />
+                  </Grid.Col>
+
+                  <Grid.Col span={6}>
+                    <TextInput
+                      label="משלוח חינם מעל (₪)"
+                      placeholder="0"
+                      type="number"
+                      {...form.getInputProps('catering.freeDeliveryThreshold')}
+                      description="סף להזמנה עם משלוח חינם (0 = לא פעיל)"
+                    />
+                  </Grid.Col>
+                </Grid>
+
+                <Text size="sm" c="blue">
+                  💡 הגדרות אלו ישפיעו על עמוד מגשי האירוח ועל ההזמנות מהקונפיגורטור
                 </Text>
               </Stack>
             </Paper>

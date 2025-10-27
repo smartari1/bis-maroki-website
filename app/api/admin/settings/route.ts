@@ -76,6 +76,9 @@ export async function PUT(request: Request) {
       if (body.plateConfig) {
         settings.plateConfig = { ...settings.plateConfig, ...body.plateConfig };
       }
+      if (body.catering) {
+        settings.catering = { ...settings.catering, ...body.catering };
+      }
 
       await settings.save();
     }

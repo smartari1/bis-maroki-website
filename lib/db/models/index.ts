@@ -15,6 +15,7 @@ import HeroScene from './HeroScene';
 import PageContent from './Page';
 import NavigationMenu from './NavigationMenu';
 import Settings from './Settings';
+import Bundle from './Bundle';
 
 // Export for convenience
 export {
@@ -27,4 +28,5 @@ export {
   PageContent,
   NavigationMenu,
   Settings,
+  Bundle,
 };

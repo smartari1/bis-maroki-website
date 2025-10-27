@@ -53,6 +53,13 @@ export interface IPlateConfig {
   reducedMotionDefault: boolean;
 }
 
+export interface ICateringSettings {
+  minOrderAmount: number;
+  minPersons: number;
+  deliveryFee?: number;
+  freeDeliveryThreshold?: number;
+}
+
 export interface ISettings extends Document {
   brand: IBrand;
   contact?: IContact;
@@ -61,6 +68,7 @@ export interface ISettings extends Document {
   legal?: ILegal;
   ui: IUI;
   plateConfig?: IPlateConfig;
+  catering?: ICateringSettings;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -209,6 +217,32 @@ const PlateConfigSchema = new Schema<IPlateConfig>(
   { _id: false }
 );
 
+const CateringSettingsSchema = new Schema<ICateringSettings>(
+  {
+    minOrderAmount: {
+      type: Number,
+      default: 200,
+      min: [0, 'מינימום הזמנה לא יכול להיות שלילי'],
+    },
+    minPersons: {
+      type: Number,
+      default: 10,
+      min: [1, 'מינימום סועדים חייב להיות לפחות 1'],
+    },
+    deliveryFee: {
+      type: Number,
+      default: 0,
+      min: [0, 'דמי משלוח לא יכולים להיות שליליים'],
+    },
+    freeDeliveryThreshold: {
+      type: Number,
+      default: 0,
+      min: [0, 'סף למשלוח חינם לא יכול להיות שלילי'],
+    },
+  },
+  { _id: false }
+);
+
 const SettingsSchema = new Schema<ISettings>(
   {
     brand: {
@@ -238,6 +272,15 @@ const SettingsSchema = new Schema<ISettings>(
     plateConfig: {
       type: PlateConfigSchema,
       default: () => ({}),
+    },
+    catering: {
+      type: CateringSettingsSchema,
+      default: () => ({
+        minOrderAmount: 200,
+        minPersons: 10,
+        deliveryFee: 0,
+        freeDeliveryThreshold: 0,
+      }),
     },
   },
   {
@@ -271,6 +314,12 @@ SettingsSchema.statics.getSingleton = async function (): Promise<ISettings> {
         magnetStrength: 0.3,
         cursorSize: 60,
         reducedMotionDefault: false,
+      },
+      catering: {
+        minOrderAmount: 200,
+        minPersons: 10,
+        deliveryFee: 0,
+        freeDeliveryThreshold: 0,
       },
     });
   }
