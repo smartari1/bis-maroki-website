@@ -7,10 +7,7 @@ import { z } from 'zod';
 
 export const reviewSchema = z.object({
   customerName: z
-    .string({
-      required_error: 'שם הלקוח נדרש',
-      invalid_type_error: 'שם הלקוח חייב להיות טקסט',
-    })
+    .string()
     .min(2, 'שם הלקוח חייב להיות לפחות 2 תווים')
     .max(100, 'שם הלקוח לא יכול להיות יותר מ-100 תווים')
     .trim(),
@@ -22,39 +19,27 @@ export const reviewSchema = z.object({
     .optional(),
 
   rating: z
-    .number({
-      required_error: 'דירוג נדרש',
-      invalid_type_error: 'הדירוג חייב להיות מספר',
-    })
+    .number()
     .int('הדירוג חייב להיות מספר שלם')
     .min(1, 'הדירוג המינימלי הוא 1')
     .max(5, 'הדירוג המקסימלי הוא 5'),
 
   testimonialText: z
-    .string({
-      required_error: 'טקסט המלצה נדרש',
-      invalid_type_error: 'טקסט ההמלצה חייב להיות טקסט',
-    })
+    .string()
     .min(10, 'ההמלצה חייבת להיות לפחות 10 תווים')
     .max(500, 'ההמלצה לא יכולה להיות יותר מ-500 תווים')
     .trim(),
 
   isFeatured: z
-    .boolean({
-      invalid_type_error: 'isFeatured חייב להיות בוליאני',
-    })
+    .boolean()
     .default(false),
 
   status: z
-    .enum(['DRAFT', 'PUBLISHED'], {
-      errorMap: () => ({ message: 'סטטוס לא חוקי. יש לבחור DRAFT או PUBLISHED' }),
-    })
+    .enum(['DRAFT', 'PUBLISHED'])
     .default('DRAFT'),
 
   order: z
-    .number({
-      invalid_type_error: 'הסדר חייב להיות מספר',
-    })
+    .number()
     .int('הסדר חייב להיות מספר שלם')
     .min(0, 'הסדר לא יכול להיות שלילי')
     .default(0),
@@ -73,7 +58,7 @@ export const reviewCreateSchema = reviewSchema;
 export type PublicReview = {
   _id: string;
   customerName: string;
-  customerInitials: string;
+  customerInitials?: string;
   rating: number;
   testimonialText: string;
   isFeatured: boolean;

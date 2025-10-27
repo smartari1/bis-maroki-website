@@ -43,16 +43,12 @@ export async function GET(request: NextRequest) {
       return validationErrorResponse(validation.error);
     }
 
-    const { typeScope, sort, order } = validation.data;
-
-    // Build query
-    const query: any = {};
-    if (typeScope) query.typeScope = typeScope;
+    const { sort, order } = validation.data;
 
     // Execute query
     const sortOrder = order === 'asc' ? 1 : -1;
 
-    const categories = await Category.find(query)
+    const categories = await Category.find({})
       .sort({ [sort]: sortOrder })
       .lean();
 

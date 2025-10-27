@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import {
   Container,
@@ -15,7 +15,7 @@ import {
 } from '@mantine/core';
 import { IconAlertCircle, IconLogin } from '@tabler/icons-react';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [password, setPassword] = useState('');
@@ -91,5 +91,13 @@ export default function LoginPage() {
         </form>
       </Paper>
     </Container>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div>טוען...</div>}>
+      <LoginForm />
+    </Suspense>
   );
 }

@@ -151,7 +151,7 @@ export async function PATCH(
     return NextResponse.json({
       success: true,
       media: {
-        _id: media._id.toString(),
+        _id: String(media._id),
         alt_he: media.alt_he,
         focalPoint: media.focalPoint,
       },

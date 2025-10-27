@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation';
 interface Review {
   _id: string;
   customerName: string;
-  customerInitials: string;
+  customerInitials?: string;
   rating: number;
   testimonialText: string;
   isFeatured: boolean;
@@ -92,7 +92,7 @@ export default function ReviewsTable({ reviews }: ReviewsTableProps) {
               fontSize: 14,
             }}
           >
-            {review.customerInitials}
+            {review.customerInitials || '?'}
           </div>
           <div>
             <Text size="sm" fw={500}>

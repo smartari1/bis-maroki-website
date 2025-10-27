@@ -65,6 +65,11 @@ export interface ISettings extends Document {
   updatedAt: Date;
 }
 
+// Interface for Settings model statics
+export interface ISettingsModel extends Model<ISettings> {
+  getSingleton(): Promise<ISettings>;
+}
+
 const BrandSchema = new Schema<IBrand>(
   {
     name_he: {
@@ -274,7 +279,7 @@ SettingsSchema.statics.getSingleton = async function (): Promise<ISettings> {
 };
 
 // Prevent model recompilation in development
-const Settings: Model<ISettings> =
-  mongoose.models.Settings || mongoose.model<ISettings>('Settings', SettingsSchema);
+const Settings: ISettingsModel =
+  (mongoose.models.Settings as ISettingsModel) || mongoose.model<ISettings, ISettingsModel>('Settings', SettingsSchema);
 
 export default Settings;

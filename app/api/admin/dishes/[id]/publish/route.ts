@@ -55,7 +55,7 @@ export async function POST(request: NextRequest, segmentData: RouteParams) {
     }
 
     // Validate that dish has required fields for publishing
-    if (!dish.title_he || !dish.categoryId || dish.price === undefined) {
+    if (!dish.title_he || !dish.categoryIds || dish.categoryIds.length === 0 || dish.price === undefined) {
       return errorResponse(
         'שדות חסרים',
         'לא ניתן לפרסם מנה ללא כותרת, קטגוריה ומחיר',

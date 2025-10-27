@@ -7,7 +7,7 @@ import { useGsapContext } from '@/lib/hooks/useGsapContext';
 interface Review {
   _id: string;
   customerName: string;
-  customerInitials: string;
+  customerInitials?: string;
   rating: number;
   testimonialText: string;
   isFeatured: boolean;
@@ -64,7 +64,7 @@ export default function SocialProof({ reviews }: SocialProofProps) {
       ease: 'back.out(1.7)',
     }, '-=0.4');
 
-  }, containerRef);
+  }, [reviews.length]);
 
   // Auto-advance carousel
   useEffect(() => {
@@ -400,7 +400,7 @@ export default function SocialProof({ reviews }: SocialProofProps) {
                   fontSize: '20px',
                 }}
               >
-                {activeReview.customerInitials}
+                {activeReview.customerInitials || '?'}
               </div>
 
               <div>

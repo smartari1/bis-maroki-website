@@ -29,21 +29,17 @@ export async function GET(request: NextRequest) {
       return handleApiError(validation.error);
     }
 
-    const { typeScope, sort, order } = validation.data;
+    const { sort, order } = validation.data;
 
     // Connect to database
     await connectDB();
-
-    // Build query filter
-    const filter: any = {};
-    if (typeScope) filter.typeScope = typeScope;
 
     // Build sort object
     const sortObj: any = {};
     sortObj[sort] = order === 'asc' ? 1 : -1;
 
     // Query categories
-    const categories = await Category.find(filter).sort(sortObj).lean();
+    const categories = await Category.find({}).sort(sortObj).lean();
 
     return successResponse(categories, { total: categories.length }, 200);
   } catch (error) {

@@ -54,7 +54,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       media: {
-        _id: media._id.toString(),
+        _id: String(media._id),
         kind: media.kind,
         fileKey: media.fileKey,
         url: media.url,
