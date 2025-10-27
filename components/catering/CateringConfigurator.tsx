@@ -160,7 +160,6 @@ export function CateringConfigurator({
 
     const message = encodeURIComponent(
       `שלום! אני רוצה להזמין מגש אירוח:\n\n` +
-        `מספר סועדים: ${personCount}\n\n` +
         `מנות:\n${dishList}\n\n` +
         `סה"כ: ₪${totalPrice}`
     );
@@ -324,30 +323,8 @@ export function CateringConfigurator({
                 </div>
               </div>
 
-              {/* Person Count Selector */}
+              {/* Budget Summary */}
               <div className="mb-6 pb-6 border-b border-gray-200">
-                <label className="block text-sm font-semibold text-[var(--brand-black)] mb-3">
-                  מספר סועדים:
-                </label>
-                <div className="flex items-center gap-4 mb-3">
-                  <button
-                    onClick={() => setPersonCount(Math.max(minPersons, personCount - 1))}
-                    className="bg-gray-200 hover:bg-gray-300 text-[var(--brand-black)] w-10 h-10 rounded-full font-bold transition-colors"
-                  >
-                    -
-                  </button>
-                  <span className="text-3xl font-bold text-[var(--brand-red)] min-w-[60px] text-center">
-                    {personCount}
-                  </span>
-                  <button
-                    onClick={() => setPersonCount(personCount + 1)}
-                    className="bg-gray-200 hover:bg-gray-300 text-[var(--brand-black)] w-10 h-10 rounded-full font-bold transition-colors"
-                  >
-                    +
-                  </button>
-                </div>
-                <p className="text-sm text-gray-500 mb-3">מינימום {minPersons} סועדים</p>
-
                 {/* Minimum Order Warning */}
                 {!hasReachedMinimum && totalPrice > 0 && (
                   <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 mb-3">
