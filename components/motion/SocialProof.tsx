@@ -21,7 +21,9 @@ export default function SocialProof({ reviews }: SocialProofProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
   const autoPlayRef = useRef<gsap.core.Tween | null>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
 
   useGsapContext(() => {
     if (!containerRef.current || reviews.length === 0) return;
@@ -53,6 +55,15 @@ export default function SocialProof({ reviews }: SocialProofProps) {
       ease: 'back.out(1.7)',
     }, '-=0.3');
 
+    // Arrow buttons entrance
+    tl.from('.nav-arrow', {
+      opacity: 0,
+      scale: 0,
+      duration: 0.4,
+      stagger: 0.1,
+      ease: 'back.out(1.7)',
+    }, '-=0.4');
+
   }, containerRef);
 
   // Auto-advance carousel
@@ -60,11 +71,78 @@ export default function SocialProof({ reviews }: SocialProofProps) {
     if (reviews.length <= 1 || isPaused) return;
 
     const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % reviews.length);
+      handleNext();
     }, 5000); // Auto-advance every 5 seconds
 
     return () => clearInterval(interval);
-  }, [reviews.length, isPaused]);
+  }, [reviews.length, isPaused, activeIndex]);
+
+  // Navigation handlers with animation
+  const handleNext = () => {
+    if (isTransitioning) return;
+
+    const featuredReviews = reviews.filter(r => r.isFeatured);
+    if (featuredReviews.length <= 1) return;
+
+    setIsTransitioning(true);
+
+    // Animate out
+    gsap.to(cardRef.current, {
+      opacity: 0,
+      x: -50,
+      duration: 0.3,
+      ease: 'power2.in',
+      onComplete: () => {
+        setActiveIndex((prev) => (prev + 1) % featuredReviews.length);
+
+        // Animate in
+        gsap.fromTo(cardRef.current,
+          { opacity: 0, x: 50 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.4,
+            ease: 'back.out(1.7)',
+            onComplete: () => setIsTransitioning(false),
+          }
+        );
+      },
+    });
+  };
+
+  const handlePrevious = () => {
+    if (isTransitioning) return;
+
+    const featuredReviews = reviews.filter(r => r.isFeatured);
+    if (featuredReviews.length <= 1) return;
+
+    setIsTransitioning(true);
+
+    // Animate out
+    gsap.to(cardRef.current, {
+      opacity: 0,
+      x: 50,
+      duration: 0.3,
+      ease: 'power2.in',
+      onComplete: () => {
+        setActiveIndex((prev) =>
+          prev === 0 ? featuredReviews.length - 1 : prev - 1
+        );
+
+        // Animate in
+        gsap.fromTo(cardRef.current,
+          { opacity: 0, x: -50 },
+          {
+            opacity: 1,
+            x: 0,
+            duration: 0.4,
+            ease: 'back.out(1.7)',
+            onComplete: () => setIsTransitioning(false),
+          }
+        );
+      },
+    });
+  };
 
   // Render stars
   const renderStars = (rating: number) => {
@@ -125,7 +203,141 @@ export default function SocialProof({ reviews }: SocialProofProps) {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
+          {/* Navigation Arrows */}
+          {featuredReviews.length > 1 && (
+            <>
+              {/* Right Arrow (Previous in RTL) */}
+              <button
+                className="nav-arrow nav-arrow-right"
+                onClick={handlePrevious}
+                disabled={isTransitioning}
+                aria-label="המלצה קודמת"
+                style={{
+                  position: 'absolute',
+                  right: '-60px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  backgroundColor: 'white',
+                  border: '2px solid #E7D7C3',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0 4px 12px rgba(60, 30, 10, 0.08)',
+                  zIndex: 10,
+                }}
+                onMouseEnter={(e) => {
+                  if (!isTransitioning) {
+                    gsap.to(e.currentTarget, {
+                      scale: 1.15,
+                      backgroundColor: '#E0723E',
+                      borderColor: '#E0723E',
+                      duration: 0.3,
+                      ease: 'back.out(1.7)',
+                    });
+                    gsap.to(e.currentTarget.querySelector('svg'), {
+                      fill: 'white',
+                      duration: 0.3,
+                    });
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  gsap.to(e.currentTarget, {
+                    scale: 1,
+                    backgroundColor: 'white',
+                    borderColor: '#E7D7C3',
+                    duration: 0.3,
+                    ease: 'power2.out',
+                  });
+                  gsap.to(e.currentTarget.querySelector('svg'), {
+                    fill: '#7C4A27',
+                    duration: 0.3,
+                  });
+                }}
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="#7C4A27"
+                  style={{ transition: 'fill 0.3s ease' }}
+                >
+                  <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+                </svg>
+              </button>
+
+              {/* Left Arrow (Next in RTL) */}
+              <button
+                className="nav-arrow nav-arrow-left"
+                onClick={handleNext}
+                disabled={isTransitioning}
+                aria-label="המלצה הבאה"
+                style={{
+                  position: 'absolute',
+                  left: '-60px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  backgroundColor: 'white',
+                  border: '2px solid #E7D7C3',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  boxShadow: '0 4px 12px rgba(60, 30, 10, 0.08)',
+                  zIndex: 10,
+                }}
+                onMouseEnter={(e) => {
+                  if (!isTransitioning) {
+                    gsap.to(e.currentTarget, {
+                      scale: 1.15,
+                      backgroundColor: '#E0723E',
+                      borderColor: '#E0723E',
+                      duration: 0.3,
+                      ease: 'back.out(1.7)',
+                    });
+                    gsap.to(e.currentTarget.querySelector('svg'), {
+                      fill: 'white',
+                      duration: 0.3,
+                    });
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  gsap.to(e.currentTarget, {
+                    scale: 1,
+                    backgroundColor: 'white',
+                    borderColor: '#E7D7C3',
+                    duration: 0.3,
+                    ease: 'power2.out',
+                  });
+                  gsap.to(e.currentTarget.querySelector('svg'), {
+                    fill: '#7C4A27',
+                    duration: 0.3,
+                  });
+                }}
+              >
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="#7C4A27"
+                  style={{ transition: 'fill 0.3s ease' }}
+                >
+                  <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
+                </svg>
+              </button>
+            </>
+          )}
+
           <div
+            ref={cardRef}
             className="review-card featured-review"
             style={{
               backgroundColor: 'white',

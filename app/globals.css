@@ -137,6 +137,72 @@
   to { transform: translateX(0); opacity: 1; }
 }
 
+/* Reviews Carousel Navigation Arrows - Responsive */
+@media (max-width: 1024px) {
+  .nav-arrow {
+    width: 40px !important;
+    height: 40px !important;
+  }
+
+  .nav-arrow-right {
+    right: -50px !important;
+  }
+
+  .nav-arrow-left {
+    left: -50px !important;
+  }
+
+  .nav-arrow svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-arrow {
+    width: 36px !important;
+    height: 36px !important;
+  }
+
+  .nav-arrow-right {
+    right: 10px !important;
+  }
+
+  .nav-arrow-left {
+    left: 10px !important;
+  }
+
+  .nav-arrow svg {
+    width: 18px !important;
+    height: 18px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-arrow {
+    width: 32px !important;
+    height: 32px !important;
+    bottom: -50px !important;
+    top: auto !important;
+    transform: none !important;
+  }
+
+  .nav-arrow-right {
+    right: 50% !important;
+    margin-right: 20px !important;
+  }
+
+  .nav-arrow-left {
+    left: 50% !important;
+    margin-left: 20px !important;
+  }
+
+  .nav-arrow svg {
+    width: 16px !important;
+    height: 16px !important;
+  }
+}
+
 /* Reduced Motion Support - WCAG Accessibility */
 @media (prefers-reduced-motion: reduce) {
   * {
