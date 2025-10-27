@@ -1,0 +1,12 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Parsley leaf sprite -->
+  <g opacity="0.8">
+    <!-- Stem -->
+    <line x1="8" y1="14" x2="8" y2="6" stroke="#4F6A3C" stroke-width="1" />
+
+    <!-- Leaves -->
+    <ellipse cx="6" cy="6" rx="2.5" ry="3" fill="#4F6A3C" transform="rotate(-30 6 6)" />
+    <ellipse cx="10" cy="6" rx="2.5" ry="3" fill="#4F6A3C" transform="rotate(30 10 6)" />
+    <ellipse cx="8" cy="4" rx="2" ry="2.5" fill="#4F6A3C" />
+  </g>
+</svg>

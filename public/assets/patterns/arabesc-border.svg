@@ -1,0 +1,18 @@
+<svg width="300" height="40" xmlns="http://www.w3.org/2000/svg">
+  <!-- Moroccan Arabesc Border Pattern -->
+  <g fill="none" stroke="#7C4A27" stroke-width="2" opacity="0.6">
+    <!-- Repeating curved pattern -->
+    <path d="M 0,20 Q 15,5 30,20 T 60,20" stroke-linecap="round"/>
+    <path d="M 60,20 Q 75,5 90,20 T 120,20" stroke-linecap="round"/>
+    <path d="M 120,20 Q 135,5 150,20 T 180,20" stroke-linecap="round"/>
+    <path d="M 180,20 Q 195,5 210,20 T 240,20" stroke-linecap="round"/>
+    <path d="M 240,20 Q 255,5 270,20 T 300,20" stroke-linecap="round"/>
+
+    <!-- Decorative dots -->
+    <circle cx="30" cy="20" r="2" fill="#E0723E" opacity="0.5"/>
+    <circle cx="90" cy="20" r="2" fill="#E0723E" opacity="0.5"/>
+    <circle cx="150" cy="20" r="2" fill="#D34A2F" opacity="0.5"/>
+    <circle cx="210" cy="20" r="2" fill="#E0723E" opacity="0.5"/>
+    <circle cx="270" cy="20" r="2" fill="#E0723E" opacity="0.5"/>
+  </g>
+</svg>

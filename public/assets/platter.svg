@@ -1,0 +1,38 @@
+<svg width="120" height="80" viewBox="0 0 120 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Elongated outer rim for platter -->
+  <ellipse cx="60" cy="40" rx="58" ry="38" fill="#F5E4D2" stroke="#7C4A27" stroke-width="2"/>
+
+  <!-- Inner rim pattern -->
+  <ellipse cx="60" cy="40" rx="54" ry="34" fill="none" stroke="#E0723E" stroke-width="0.5" opacity="0.6"/>
+  <ellipse cx="60" cy="40" rx="52" ry="32" fill="none" stroke="#D34A2F" stroke-width="0.3" opacity="0.4"/>
+
+  <!-- Center platter surface with gradient -->
+  <defs>
+    <radialGradient id="platterGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFF6ED"/>
+      <stop offset="70%" stop-color="#F5E4D2"/>
+      <stop offset="100%" stop-color="#E7D7C3"/>
+    </radialGradient>
+
+    <linearGradient id="specularPlatter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.8)"/>
+      <stop offset="50%" stop-color="rgba(255,255,255,0.3)"/>
+      <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+    </linearGradient>
+  </defs>
+
+  <ellipse cx="60" cy="40" rx="50" ry="30" fill="url(#platterGradient)"/>
+
+  <!-- Moroccan decorative pattern adapted for platter -->
+  <g opacity="0.15" stroke="#7C4A27" stroke-width="0.5" fill="none">
+    <path d="M 60 20 L 64 24 L 60 28 L 56 24 Z"/>
+    <path d="M 80 40 L 84 44 L 80 48 L 76 44 Z"/>
+    <path d="M 60 52 L 64 56 L 60 60 L 56 56 Z"/>
+    <path d="M 40 40 L 44 44 L 40 48 L 36 44 Z"/>
+  </g>
+
+  <!-- Specular highlight layer -->
+  <g id="highlightPlatter" opacity="0">
+    <ellipse cx="65" cy="35" rx="20" ry="10" fill="url(#specularPlatter)" transform="rotate(-45 65 35)"/>
+  </g>
+</svg>

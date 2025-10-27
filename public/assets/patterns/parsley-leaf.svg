@@ -1,0 +1,14 @@
+<svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+  <!-- Parsley Leaf for garnish -->
+  <g fill="#4F6A3C">
+    <!-- Main leaf shape -->
+    <path d="M 8,2 Q 6,4 5,6 Q 4,8 4,10 Q 6,12 8,14 Q 10,12 12,10 Q 12,8 11,6 Q 10,4 8,2 Z" opacity="0.8"/>
+
+    <!-- Leaf veins -->
+    <line x1="8" y1="4" x2="8" y2="12" stroke="#3E5A2E" stroke-width="0.5" opacity="0.6"/>
+    <line x1="8" y1="6" x2="6" y2="8" stroke="#3E5A2E" stroke-width="0.3" opacity="0.4"/>
+    <line x1="8" y1="6" x2="10" y2="8" stroke="#3E5A2E" stroke-width="0.3" opacity="0.4"/>
+    <line x1="8" y1="9" x2="6" y2="10" stroke="#3E5A2E" stroke-width="0.3" opacity="0.4"/>
+    <line x1="8" y1="9" x2="10" y2="10" stroke="#3E5A2E" stroke-width="0.3" opacity="0.4"/>
+  </g>
+</svg>

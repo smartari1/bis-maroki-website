@@ -1,0 +1,42 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <!-- Moroccan Zellige Tile Pattern (8-point star + geometric shapes) -->
+  <defs>
+    <pattern id="zellige" x="0" y="0" width="200" height="200" patternUnits="userSpaceOnUse">
+      <!-- Background -->
+      <rect width="200" height="200" fill="#F5E4D2" fill-opacity="0.1"/>
+
+      <!-- Center 8-point star -->
+      <g transform="translate(100, 100)">
+        <polygon points="0,-30 7.5,-7.5 30,0 7.5,7.5 0,30 -7.5,7.5 -30,0 -7.5,-7.5"
+                 fill="none" stroke="#7C4A27" stroke-width="1.5" opacity="0.4"/>
+        <circle cx="0" cy="0" r="5" fill="#E0723E" opacity="0.3"/>
+      </g>
+
+      <!-- Corner 4-point stars -->
+      <g transform="translate(0, 0)">
+        <polygon points="0,-15 5,-5 15,0 5,5 0,15 -5,5 -15,0 -5,-5"
+                 fill="none" stroke="#C7A88C" stroke-width="1" opacity="0.3"/>
+      </g>
+      <g transform="translate(200, 0)">
+        <polygon points="0,-15 5,-5 15,0 5,5 0,15 -5,5 -15,0 -5,-5"
+                 fill="none" stroke="#C7A88C" stroke-width="1" opacity="0.3"/>
+      </g>
+      <g transform="translate(0, 200)">
+        <polygon points="0,-15 5,-5 15,0 5,5 0,15 -5,5 -15,0 -5,-5"
+                 fill="none" stroke="#C7A88C" stroke-width="1" opacity="0.3"/>
+      </g>
+      <g transform="translate(200, 200)">
+        <polygon points="0,-15 5,-5 15,0 5,5 0,15 -5,5 -15,0 -5,-5"
+                 fill="none" stroke="#C7A88C" stroke-width="1" opacity="0.3"/>
+      </g>
+
+      <!-- Connecting lines -->
+      <line x1="100" y1="70" x2="100" y2="0" stroke="#E7D7C3" stroke-width="1" opacity="0.3"/>
+      <line x1="100" y1="130" x2="100" y2="200" stroke="#E7D7C3" stroke-width="1" opacity="0.3"/>
+      <line x1="70" y1="100" x2="0" y2="100" stroke="#E7D7C3" stroke-width="1" opacity="0.3"/>
+      <line x1="130" y1="100" x2="200" y2="100" stroke="#E7D7C3" stroke-width="1" opacity="0.3"/>
+    </pattern>
+  </defs>
+
+  <rect width="200" height="200" fill="url(#zellige)"/>
+</svg>
